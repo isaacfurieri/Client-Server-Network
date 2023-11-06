@@ -8,26 +8,46 @@ using System;
 
 public class TCPServer : MonoBehaviour
 {
-    public string host;
-    public int port;
+    private string host;
+    private int port;
 
     private TcpListener server;
     private Thread serverThread = null;
 
+    public static TCPServer Instance;
+    public static Action OnServerCreated;
+    
     NetworkStream stream;
+
+    //Awake is called before the game starts
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        CreateServer();
-
+        //CreateServer(string, int);
     }
 
     // Create Server
-    void CreateServer()
+    public void CreateServer(string hostController, int portController)
     {
+        //Assign value from Controller
+        host = hostController;
+        port = portController;
+
+        //Create server logic
         serverThread = new Thread(ListenerThread);
         serverThread.Start();
+        /*   
+           if (OnServerCreated != null)
+               OnServerCreated.Invoke();
+
+       The code above is equal the line bellow
+       */
+
     }
 
     void ListenerThread()
@@ -40,6 +60,7 @@ public class TCPServer : MonoBehaviour
         server.Start();
 
         Debug.Log("Server has been created.");
+        OnServerCreated?.Invoke();
 
         while (true)
         {
