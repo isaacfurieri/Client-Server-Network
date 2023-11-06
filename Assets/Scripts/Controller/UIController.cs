@@ -24,7 +24,7 @@ public class UIController : MonoBehaviour
 
     void Update()
     {
-
+        TCPClient.OnConnectedToServer += ShowChat;
     }
 
     public void ShowLogin()

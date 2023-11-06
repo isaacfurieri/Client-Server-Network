@@ -11,12 +11,15 @@ public class TCPClient : MonoBehaviour
     NetworkStream stream;
     TcpClient client = null;
     
-    public string host;
-    public int port;
-    
     private Thread clientThread = null;
 
+    public static TCPClient Instance;
+    public static Action OnConnectedToServer;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -26,17 +29,20 @@ public class TCPClient : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            ConnectedToServer();
-        }
+        //if(Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    ConnectedToServer();
+        //}
     }
 
-    private void ConnectedToServer()
+    public void ConnectedToServer(string hostController, int portController)
     {
         Debug.Log("Request Connection");
-        client = new TcpClient(host, port);
+        client = new TcpClient(hostController, portController);
+        OnConnectedToServer?.Invoke();
+
         stream = client.GetStream();
+
         SendData("Hi this is Client");
         
         clientThread = new Thread(ReceiveData);

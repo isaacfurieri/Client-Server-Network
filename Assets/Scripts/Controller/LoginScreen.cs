@@ -36,5 +36,6 @@ public class LoginScreen : MonoBehaviour
     void ClientButtonClicked()
     {
         Debug.Log("Client CLicked");
+        TCPClient.Instance.ConnectedToServer(IPAddress.text, int.Parse(Port.text));
     }
 }
