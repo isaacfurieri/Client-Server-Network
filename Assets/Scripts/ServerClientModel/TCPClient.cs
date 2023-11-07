@@ -15,6 +15,7 @@ public class TCPClient : MonoBehaviour
 
     public static TCPClient Instance;
     public static Action OnConnectedToServer;
+    public static Action OnSendMessage;
 
     private void Awake()
     {
@@ -49,14 +50,15 @@ public class TCPClient : MonoBehaviour
         clientThread.Start();
     }
 
-    private void SendData(string msg) 
+    public void SendData(string msg) 
     {
         Byte[] bytes = System.Text.Encoding.ASCII.GetBytes(msg);
         stream.Write(bytes, 0, bytes.Length);
+        OnSendMessage?.Invoke();
         Debug.Log("Client sent " + msg);
     }
 
-    private void ReceiveData()
+    public void ReceiveData()
     {
         string msg;
 

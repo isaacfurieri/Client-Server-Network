@@ -2721,37 +2721,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 918270762}
   m_CullTransparentMesh: 1
---- !u!1 &947477302
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 947477303}
-  m_Layer: 0
-  m_Name: UI
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &947477303
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 947477302}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -3582,8 +3551,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 36
+  m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4342,6 +4311,7 @@ GameObject:
   - component: {fileID: 1754413462}
   - component: {fileID: 1754413464}
   - component: {fileID: 1754413463}
+  - component: {fileID: 1754413465}
   m_Layer: 5
   m_Name: Chat
   m_TagString: Untagged
@@ -4408,6 +4378,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1754413461}
   m_CullTransparentMesh: 1
+--- !u!114 &1754413465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1754413461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff3870eeace2a1b40a1662972c605437, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextMessage: {fileID: 1140490582}
+  SendButton: {fileID: 1299135617}
 --- !u!1 &1768325790
 GameObject:
   m_ObjectHideFlags: 0
@@ -4558,6 +4542,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1841466123}
   - component: {fileID: 1841466124}
+  - component: {fileID: 1841466125}
   m_Layer: 5
   m_Name: UIController
   m_TagString: Untagged
@@ -4600,6 +4585,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LoginView: {fileID: 1870417972}
   ChatView: {fileID: 1754413461}
+--- !u!114 &1841466125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841466122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01b2a0b7c8ca25d4c8ec41e30f411d9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1870417972
 GameObject:
   m_ObjectHideFlags: 0
@@ -4618,7 +4615,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1870417973
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5811,6 +5808,5 @@ SceneRoots:
   - {fileID: 963194228}
   - {fileID: 705507995}
   - {fileID: 2088206383}
-  - {fileID: 947477303}
   - {fileID: 1768325794}
   - {fileID: 339353092}

@@ -9,9 +9,9 @@ public class LoginScreen : MonoBehaviour
 {
     public TMP_InputField IPAddress;
     public TMP_InputField Port;
+
     public Button ServerButton;
     public Button ClientButton;
-
 
     public static Action onServerConnected;
 

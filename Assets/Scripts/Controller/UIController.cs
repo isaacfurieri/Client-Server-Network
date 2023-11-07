@@ -19,7 +19,6 @@ public class UIController : MonoBehaviour
     {
         TCPServer.OnServerCreated += ShowChat;
         ShowLogin();
-
     }
 
     void Update()
@@ -29,14 +28,19 @@ public class UIController : MonoBehaviour
 
     public void ShowLogin()
     {
-        LoginView.SetActive(true);
-        ChatView.SetActive(false);
+        UnityMainThread.umt.AddJob(() => {
+            LoginView.SetActive(true);
+            ChatView.SetActive(false);
+        });
     }
 
     public void ShowChat()
     {
-        LoginView.SetActive(false);
-        ChatView.SetActive(true);
+        UnityMainThread.umt.AddJob(() =>
+        {
+            LoginView.SetActive(false);
+            ChatView.SetActive(true);
+        });
     }
 
 }
