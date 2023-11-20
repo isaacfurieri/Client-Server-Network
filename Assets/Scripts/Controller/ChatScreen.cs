@@ -26,6 +26,7 @@ public class ChatScreen : MonoBehaviour
     void Start()
     {
         TCPMyClient.OnClientReceiveMessage += ShowMessage;
+        TCPMyServer.OnServerReceiveMessage += ShowMessage;
         SendButton.onClick.AddListener(SendButtonClicked);
     }
 
@@ -60,7 +61,15 @@ public class ChatScreen : MonoBehaviour
 
     private void ShowMessage(string msg)
     {
-        GameObject chat = Instantiate(ChatTextPrefab, MessageParent);
-        chat.GetComponent<TMP_Text>().text = msg;
+        if (!UIController.Instance.IsServer)
+        {
+            GameObject chat = Instantiate(ChatTextPrefab, MessageParent);
+            chat.GetComponent<TMP_Text>().text = "Client: " + msg;
+        }
+        else
+        {
+            GameObject chat = Instantiate(ChatTextPrefab, MessageParent);
+            chat.GetComponent<TMP_Text>().text = "Server: " + msg;
+        }
     }
 }

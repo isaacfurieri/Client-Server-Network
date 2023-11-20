@@ -18,7 +18,7 @@ public class TCPMyServer : MonoBehaviour
     
     public static Action OnServerCreated;
     public static Action OnSendMessageServer;
-    public static Action OnReceive;
+    public static Action<string> OnServerReceiveMessage;
 
     NetworkStream stream;
 
@@ -81,6 +81,7 @@ public class TCPMyServer : MonoBehaviour
             {
                 msg = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
                 Debug.LogFormat("Server Received :: {0}", msg);
+                UnityMainThread.umt.AddJob(() => OnServerReceiveMessage?.Invoke(msg));
             }
         }
     }
