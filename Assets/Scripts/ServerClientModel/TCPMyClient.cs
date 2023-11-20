@@ -16,6 +16,7 @@ public class TCPMyClient : MonoBehaviour
     public static TCPMyClient Instance;
     public static Action OnConnectedToServer;
     public static Action OnSendMessageClient;
+    public static Action<string> OnClientReceiveMessage;
 
     private void Awake()
     {
@@ -69,6 +70,7 @@ public class TCPMyClient : MonoBehaviour
             stream.Read(bytes, 0, bytes.Length);
             msg = System.Text.Encoding.ASCII.GetString(bytes, 0, bytes.Length);
             Debug.LogFormat("Client Received :: {0}", msg);
+            UnityMainThread.umt.AddJob(()=> OnClientReceiveMessage?.Invoke(msg));
         }
 
     }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using TMPro;
+using TMPro.EditorUtilities;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,8 +12,9 @@ using UnityEngine.UIElements;
 public class ChatScreen : MonoBehaviour
 {
     public TMP_InputField TextMessage;
-    public ScrollView ScrollMessages;
     public TMP_Text ChatText;
+    public Transform MessageParent;
+    public GameObject ChatTextPrefab;
 
     public UnityEngine.UI.Button SendButton;
 
@@ -23,6 +25,7 @@ public class ChatScreen : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        TCPMyClient.OnClientReceiveMessage += ShowMessage;
         SendButton.onClick.AddListener(SendButtonClicked);
     }
 
@@ -53,5 +56,11 @@ public class ChatScreen : MonoBehaviour
             }
         }
                 
+    }
+
+    private void ShowMessage(string msg)
+    {
+        GameObject chat = Instantiate(ChatTextPrefab, MessageParent);
+        chat.GetComponent<TMP_Text>().text = msg;
     }
 }
