@@ -82,9 +82,9 @@ public class TCPServer : MonoBehaviour
                 msg = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
                 Debug.LogFormat("Server Received :: {0}", msg);
 
-                string msgToClient = "Hi this is Server";
+                //string msgToClient = "Hi this is Server";
 
-                SendData(msgToClient);
+                //SendData(msgToClient);
             }
         }
     }

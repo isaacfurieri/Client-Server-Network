@@ -41,15 +41,15 @@ public class ChatScreen : MonoBehaviour
             {
                 //client
                 TCPClient.Instance.SendMessage(inputMessage);
-                TextMessage.text = "";
                 Debug.Log("message sent from client: " + inputMessage);
+                TextMessage.text = "";
             }
             else
             {
                 //server
                 TCPServer.Instance.SendData(inputMessage);
-                TextMessage.text = "";
                 Debug.Log("message sent from server: " + inputMessage);
+                TextMessage.text = "";
             }
         }
                 
