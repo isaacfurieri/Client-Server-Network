@@ -64,12 +64,12 @@ public class ChatScreen : MonoBehaviour
         if (!UIController.Instance.IsServer)
         {
             GameObject chat = Instantiate(ChatTextPrefab, MessageParent);
-            chat.GetComponent<TMP_Text>().text = "Server: " + msg;
+            chat.GetComponent<TMP_Text>().text = "Client: " + msg;
         }
         else
         {
             GameObject chat = Instantiate(ChatTextPrefab, MessageParent);
-            chat.GetComponent<TMP_Text>().text = "Client: " + msg;
+            chat.GetComponent<TMP_Text>().text = "Server: " + msg;
         }
     }
 }

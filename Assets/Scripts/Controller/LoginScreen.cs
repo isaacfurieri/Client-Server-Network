@@ -29,7 +29,7 @@ public class LoginScreen : MonoBehaviour
 
     void ServerButtonClicked()
     {
-        Debug.Log("SErver CLicked");
+        Debug.Log("Server CLicked");
         TCPMyServer.Instance.CreateServer(IPAddress.text, int.Parse(Port.text));
     }
 
