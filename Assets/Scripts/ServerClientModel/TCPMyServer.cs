@@ -81,7 +81,7 @@ public class TCPMyServer : MonoBehaviour
             {
                 msg = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
                 Debug.LogFormat("Server Received :: {0}", msg);
-                UnityMainThread.umt.AddJob(() => OnServerReceiveMessage?.Invoke("Server: " + msg));
+                UnityMainThread.umt.AddJob(() => OnServerReceiveMessage?.Invoke("Client: " + msg));
             }
         }
     }

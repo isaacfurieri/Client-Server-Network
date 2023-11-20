@@ -45,14 +45,14 @@ public class ChatScreen : MonoBehaviour
             {
                 //client
                 TCPMyClient.Instance.SendData(inputMessage);
-                ShowMessage(inputMessage);
+                ShowMessage("Client: " + inputMessage);
                 TextMessage.text = "";
             }
             else
             {
                 //server
                 TCPMyServer.Instance.SendData(inputMessage);
-                ShowMessage(inputMessage);
+                ShowMessage("Server: " + inputMessage);
                 TextMessage.text = "";
             }
         }
@@ -61,7 +61,6 @@ public class ChatScreen : MonoBehaviour
 
     private void ShowMessage(string msg)
     {
-        
         GameObject chat = Instantiate(ChatTextPrefab, MessageParent);
         chat.GetComponent<TMP_Text>().text = msg;
      }
