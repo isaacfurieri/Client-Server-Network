@@ -10,6 +10,8 @@ public class UIController : MonoBehaviour
 
     public static UIController Instance;
 
+    public bool IsServer = false;
+
     private void Awake()
     {
         Instance = this;
@@ -17,7 +19,7 @@ public class UIController : MonoBehaviour
 
     void Start()
     {
-        TCPServer.OnServerCreated += ShowChat;
+        TCPServer.OnServerCreated += () => { IsServer = true; ShowChat(); };
         ShowLogin();
     }
 
@@ -26,7 +28,7 @@ public class UIController : MonoBehaviour
         TCPClient.OnConnectedToServer += ShowChat;
     }
 
-    public void ShowLogin()
+    private void ShowLogin()
     {
         UnityMainThread.umt.AddJob(() => {
             LoginView.SetActive(true);
@@ -34,7 +36,7 @@ public class UIController : MonoBehaviour
         });
     }
 
-    public void ShowChat()
+    private void ShowChat()
     {
         UnityMainThread.umt.AddJob(() =>
         {

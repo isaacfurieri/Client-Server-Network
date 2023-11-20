@@ -12,6 +12,7 @@ public class ChatScreen : MonoBehaviour
 {
     public TMP_InputField TextMessage;
     public ScrollView ScrollMessages;
+    public TMP_Text ChatText;
 
     public UnityEngine.UI.Button SendButton;
 
@@ -32,11 +33,25 @@ public class ChatScreen : MonoBehaviour
     }
     void SendButtonClicked()
     {
-        string inputMessage = TextMessage.GetComponent<TMP_InputField>().text;
+        string inputMessage = TextMessage.text;
 
-        Debug.Log(inputMessage);
-        TCPClient.Instance.SendData(inputMessage);
-        TextMessage.GetComponent<TMP_InputField>().text = string.Empty;
-        Debug.Log("Send message clicked");
+        if(!string.IsNullOrWhiteSpace(inputMessage))
+        {
+            if(!UIController.Instance.IsServer)
+            {
+                //client
+                TCPClient.Instance.SendMessage(inputMessage);
+                TextMessage.text = "";
+                Debug.Log("message sent from client: " + inputMessage);
+            }
+            else
+            {
+                //server
+                TCPServer.Instance.SendData(inputMessage);
+                TextMessage.text = "";
+                Debug.Log("message sent from server: " + inputMessage);
+            }
+        }
+                
     }
 }

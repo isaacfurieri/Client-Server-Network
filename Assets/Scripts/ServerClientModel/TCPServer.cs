@@ -15,8 +15,11 @@ public class TCPServer : MonoBehaviour
     private Thread serverThread = null;
 
     public static TCPServer Instance;
-    public static Action OnServerCreated;
     
+    public static Action OnServerCreated;
+    public static Action OnSendMessageServer;
+    public static Action OnReceive;
+
     NetworkStream stream;
 
     //Awake is called before the game starts
@@ -81,12 +84,19 @@ public class TCPServer : MonoBehaviour
 
                 string msgToClient = "Hi this is Server";
 
-                bytes = System.Text.Encoding.ASCII.GetBytes(msgToClient);
-                stream.Write(bytes, 0, bytes.Length);
-                Debug.Log("Server sent :: " + msgToClient);
+                SendData(msgToClient);
             }
         }
     }
+    public void SendData(string msg)
+    {
+        Debug.Log(msg);
+        Byte[] bytes = System.Text.Encoding.ASCII.GetBytes(msg);
+        stream.Write(bytes, 0, bytes.Length);
+        OnSendMessageServer?.Invoke();
+        Debug.Log("Server sent " + msg);
+    }
+
 
     // Update is called once per frame
     void Update()
