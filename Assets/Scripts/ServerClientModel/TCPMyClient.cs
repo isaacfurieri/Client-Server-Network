@@ -70,7 +70,7 @@ public class TCPMyClient : MonoBehaviour
             stream.Read(bytes, 0, bytes.Length);
             msg = System.Text.Encoding.ASCII.GetString(bytes, 0, bytes.Length);
             Debug.LogFormat("Client Received :: {0}", msg);
-            UnityMainThread.umt.AddJob(()=> OnClientReceiveMessage?.Invoke(msg));
+            UnityMainThread.umt.AddJob(()=> OnClientReceiveMessage?.Invoke("Client: " + msg));
         }
 
     }
