@@ -32,7 +32,10 @@ public class ChatScreen : MonoBehaviour
     }
     void SendButtonClicked()
     {
-        TCPClient.Instance.SendData(TextMessage.GetComponent<TMP_InputField>().text);
+        string inputMessage = TextMessage.GetComponent<TMP_InputField>().text;
+
+        Debug.Log(inputMessage);
+        TCPClient.Instance.SendData(inputMessage);
         TextMessage.GetComponent<TMP_InputField>().text = string.Empty;
         Debug.Log("Send message clicked");
     }

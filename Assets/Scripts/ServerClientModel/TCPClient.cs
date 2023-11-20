@@ -52,6 +52,7 @@ public class TCPClient : MonoBehaviour
 
     public void SendData(string msg) 
     {
+        Debug.Log(msg);
         Byte[] bytes = System.Text.Encoding.ASCII.GetBytes(msg);
         stream.Write(bytes, 0, bytes.Length);
         OnSendMessage?.Invoke();
