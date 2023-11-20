@@ -45,14 +45,14 @@ public class ChatScreen : MonoBehaviour
             {
                 //client
                 TCPMyClient.Instance.SendData(inputMessage);
-                Debug.Log("message sent from client: " + inputMessage);
+                ShowMessage(inputMessage);
                 TextMessage.text = "";
             }
             else
             {
                 //server
                 TCPMyServer.Instance.SendData(inputMessage);
-                Debug.Log("message sent from server: " + inputMessage);
+                ShowMessage(inputMessage);
                 TextMessage.text = "";
             }
         }
@@ -64,12 +64,12 @@ public class ChatScreen : MonoBehaviour
         if (!UIController.Instance.IsServer)
         {
             GameObject chat = Instantiate(ChatTextPrefab, MessageParent);
-            chat.GetComponent<TMP_Text>().text = "Client: " + msg;
+            chat.GetComponent<TMP_Text>().text = "Server: " + msg;
         }
         else
         {
             GameObject chat = Instantiate(ChatTextPrefab, MessageParent);
-            chat.GetComponent<TMP_Text>().text = "Server: " + msg;
+            chat.GetComponent<TMP_Text>().text = "Client: " + msg;
         }
     }
 }
