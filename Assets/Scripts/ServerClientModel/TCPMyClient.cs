@@ -6,14 +6,14 @@ using System;
 using System.Threading;
 
 
-public class TCPClient : MonoBehaviour
+public class TCPMyClient : MonoBehaviour
 {
     NetworkStream stream;
     TcpClient client = null;
     
     private Thread clientThread = null;
 
-    public static TCPClient Instance;
+    public static TCPMyClient Instance;
     public static Action OnConnectedToServer;
     public static Action OnSendMessageClient;
 

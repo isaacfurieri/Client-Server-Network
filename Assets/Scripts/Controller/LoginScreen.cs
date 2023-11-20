@@ -30,12 +30,12 @@ public class LoginScreen : MonoBehaviour
     void ServerButtonClicked()
     {
         Debug.Log("SErver CLicked");
-        TCPServer.Instance.CreateServer(IPAddress.text, int.Parse(Port.text));
+        TCPMyServer.Instance.CreateServer(IPAddress.text, int.Parse(Port.text));
     }
 
     void ClientButtonClicked()
     {
         Debug.Log("Client CLicked");
-        TCPClient.Instance.ConnectedToServer(IPAddress.text, int.Parse(Port.text));
+        TCPMyClient.Instance.ConnectedToServer(IPAddress.text, int.Parse(Port.text));
     }
 }

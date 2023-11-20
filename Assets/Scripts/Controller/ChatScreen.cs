@@ -40,14 +40,14 @@ public class ChatScreen : MonoBehaviour
             if(!UIController.Instance.IsServer)
             {
                 //client
-                TCPClient.Instance.SendMessage(inputMessage);
+                TCPMyClient.Instance.SendData(inputMessage);
                 Debug.Log("message sent from client: " + inputMessage);
                 TextMessage.text = "";
             }
             else
             {
                 //server
-                TCPServer.Instance.SendData(inputMessage);
+                TCPMyServer.Instance.SendData(inputMessage);
                 Debug.Log("message sent from server: " + inputMessage);
                 TextMessage.text = "";
             }

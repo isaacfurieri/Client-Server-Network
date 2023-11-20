@@ -19,13 +19,13 @@ public class UIController : MonoBehaviour
 
     void Start()
     {
-        TCPServer.OnServerCreated += () => { IsServer = true; ShowChat(); };
+        TCPMyServer.OnServerCreated += () => { IsServer = true; ShowChat(); };
         ShowLogin();
     }
 
     void Update()
     {
-        TCPClient.OnConnectedToServer += ShowChat;
+        TCPMyClient.OnConnectedToServer += ShowChat;
     }
 
     private void ShowLogin()

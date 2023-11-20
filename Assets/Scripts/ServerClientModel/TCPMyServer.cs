@@ -6,7 +6,7 @@ using System.Net;
 using System.Threading;
 using System;
 
-public class TCPServer : MonoBehaviour
+public class TCPMyServer : MonoBehaviour
 {
     private string host;
     private int port;
@@ -14,7 +14,7 @@ public class TCPServer : MonoBehaviour
     private TcpListener server;
     private Thread serverThread = null;
 
-    public static TCPServer Instance;
+    public static TCPMyServer Instance;
     
     public static Action OnServerCreated;
     public static Action OnSendMessageServer;
@@ -81,10 +81,6 @@ public class TCPServer : MonoBehaviour
             {
                 msg = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
                 Debug.LogFormat("Server Received :: {0}", msg);
-
-                //string msgToClient = "Hi this is Server";
-
-                //SendData(msgToClient);
             }
         }
     }
