@@ -6,21 +6,36 @@ using System.Net;
 using System.Threading;
 using System;
 
+public class Client
+{
+    public string Id;
+    public NetworkStream Stream;
+}
+
+public class Message
+{
+    public string SenderID;
+    public string Data;
+    public string Time;
+    public string Type;
+}
+
 public class TCPMyServer : MonoBehaviour
 {
     private string host;
     private int port;
 
     private TcpListener server;
-    private Thread serverThread = null;
-
     public static TCPMyServer Instance;
-    
+
     public static Action OnServerCreated;
     public static Action OnSendMessageServer;
     public static Action<string> OnServerReceiveMessage;
 
     NetworkStream stream;
+    List<Client> clients = new List<Client>();
+
+    private Thread serverThread = null;
 
     //Awake is called before the game starts
     private void Awake()
@@ -54,9 +69,7 @@ public class TCPMyServer : MonoBehaviour
     }
 
     void ListenerThread()
-    {
-        string msg;
-        
+    {        
         IPAddress iPAddress = IPAddress.Parse(host);
         
         server = new TcpListener(iPAddress, port);
@@ -76,12 +89,26 @@ public class TCPMyServer : MonoBehaviour
             stream = client.GetStream();
             Byte[] bytes = new Byte[256];
             int i;
+            string msg = "";
+
 
             while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
             {
                 msg = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
                 Debug.LogFormat("Server Received :: {0}", msg);
                 UnityMainThread.umt.AddJob(() => OnServerReceiveMessage?.Invoke("Client: " + msg));
+            }
+
+            Client c = new Client();
+
+            c.Id = msg;
+            c.Stream = stream;
+
+            clients.Add(c);
+
+            foreach (var Client in clients)
+            {
+                Debug.Log("Connected user " + Client.Id + " and stream is " + Client.Stream);
             }
         }
     }

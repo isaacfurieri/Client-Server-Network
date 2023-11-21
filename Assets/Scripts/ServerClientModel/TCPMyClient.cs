@@ -37,7 +37,7 @@ public class TCPMyClient : MonoBehaviour
         //}
     }
 
-    public void ConnectedToServer(string hostController, int portController)
+    public void ConnectedToServer(string userID, string hostController, int portController)
     {
         Debug.Log("Request Connection");
         client = new TcpClient(hostController, portController);
@@ -45,7 +45,7 @@ public class TCPMyClient : MonoBehaviour
 
         stream = client.GetStream();
 
-        SendData("Hi this is Client");
+        SendData(userID);
         
         clientThread = new Thread(ReceiveData);
         clientThread.Start();

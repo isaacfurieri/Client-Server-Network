@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class UIController : MonoBehaviour
 {
-
-    public GameObject LoginView;
+    public GameObject MainScreenView;
+    public GameObject CreateServerView;
+    public GameObject JoinServerView;
     public GameObject ChatView;
 
     public static UIController Instance;
@@ -20,27 +21,61 @@ public class UIController : MonoBehaviour
     void Start()
     {
         TCPMyServer.OnServerCreated += () => { IsServer = true; ShowChat(); };
-        ShowLogin();
+        ShowMainScreen();
     }
 
     void Update()
     {
         TCPMyClient.OnConnectedToServer += ShowChat;
+        MainScreen.onServerButtonClicked += ShowCreateServer;
+        MainScreen.onClientButtonClicked += ShowJoinServer;
+        CreateServerScreen.onBackButtonClicked += ShowMainScreen;
+        JoinServerScreen.onBackButtonClicked += ShowMainScreen;
     }
 
-    private void ShowLogin()
+    private void ShowMainScreen()
     {
         UnityMainThread.umt.AddJob(() => {
-            LoginView.SetActive(true);
+            MainScreenView.SetActive(true);
+
             ChatView.SetActive(false);
+            JoinServerView.SetActive(false);
+            CreateServerView.SetActive(false);
         });
     }
+
+    private void ShowJoinServer()
+    {
+        UnityMainThread.umt.AddJob(() =>
+        {
+            MainScreenView.SetActive(false);
+            ChatView.SetActive(false);
+            CreateServerView.SetActive(false);
+
+            JoinServerView.SetActive(true);
+        });
+    }
+
+    private void ShowCreateServer()
+    {
+        UnityMainThread.umt.AddJob(() => 
+        {
+            MainScreenView.SetActive(false);
+            ChatView.SetActive(false);
+            JoinServerView.SetActive(false);
+
+            CreateServerView.SetActive(true);
+        });
+    }
+
 
     private void ShowChat()
     {
         UnityMainThread.umt.AddJob(() =>
         {
-            LoginView.SetActive(false);
+            MainScreenView.SetActive(false);
+            CreateServerView.SetActive(false);
+
             ChatView.SetActive(true);
         });
     }

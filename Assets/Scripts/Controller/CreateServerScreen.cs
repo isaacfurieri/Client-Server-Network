@@ -5,20 +5,27 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LoginScreen : MonoBehaviour
+public class CreateServerScreen : MonoBehaviour
 {
+    public static CreateServerScreen Instance;
+
     public TMP_InputField IPAddress;
     public TMP_InputField Port;
 
     public Button ServerButton;
-    public Button ClientButton;
+    public Button BackButton;
 
-    public static Action onServerConnected;
+    public static Action onBackButtonClicked;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
         ServerButton.onClick.AddListener(ServerButtonClicked);
-        ClientButton.onClick.AddListener(ClientButtonClicked);
+        BackButton.onClick.AddListener(BackButtonClicked);
     }
 
     // Update is called once per frame
@@ -33,9 +40,8 @@ public class LoginScreen : MonoBehaviour
         TCPMyServer.Instance.CreateServer(IPAddress.text, int.Parse(Port.text));
     }
 
-    void ClientButtonClicked()
+    void BackButtonClicked()
     {
-        Debug.Log("Client CLicked");
-        TCPMyClient.Instance.ConnectedToServer(IPAddress.text, int.Parse(Port.text));
+        onBackButtonClicked?.Invoke();
     }
 }
