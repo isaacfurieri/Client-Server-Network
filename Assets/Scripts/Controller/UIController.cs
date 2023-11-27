@@ -75,6 +75,7 @@ public class UIController : MonoBehaviour
         {
             MainScreenView.SetActive(false);
             CreateServerView.SetActive(false);
+            JoinServerView.SetActive(false);
 
             ChatView.SetActive(true);
         });

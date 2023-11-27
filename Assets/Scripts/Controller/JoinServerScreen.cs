@@ -38,7 +38,7 @@ public class JoinServerScreen : MonoBehaviour
     void JoinServerButtonClicked()
     {
         Debug.Log("Server CLicked");
-        TCPMyClient.Instance.ConnectedToServer(Username.text, IPAddress.text, int.Parse(Port.text));
+        TCPMyClient.Instance.ConnectedToServer("UID:" + Username.text, IPAddress.text, int.Parse(Port.text));
     }
 
     void BackButtonClicked()

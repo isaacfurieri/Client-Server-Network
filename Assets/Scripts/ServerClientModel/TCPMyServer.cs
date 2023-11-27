@@ -84,32 +84,45 @@ public class TCPMyServer : MonoBehaviour
             if (client != null) 
             {
                 Debug.Log("Client is connected : " + client.Client.LocalEndPoint);
+                stream = client.GetStream();
             }
 
-            stream = client.GetStream();
             Byte[] bytes = new Byte[256];
             int i;
             string msg = "";
 
-
-            while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
+            while ((i = stream.Read(bytes, 0, bytes.Length)) > 0)
             {
                 msg = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
                 Debug.LogFormat("Server Received :: {0}", msg);
-                UnityMainThread.umt.AddJob(() => OnServerReceiveMessage?.Invoke("Client: " + msg));
+
+                if (msg.Contains("UID"))
+                {
+                    Client c = new Client();
+                    Debug.Log( msg.Substring(4, msg.Length - 4));
+                    c.Id = msg.Substring(4, msg.Length - 4);
+                    c.Stream = stream;
+                    clients.Add(c);
+
+                    Debug.Log("Connected user " + c.Id + " and stream is " + c.Stream);
+
+                    foreach (var Client in clients)
+                    {
+                        Debug.Log("Connected user " + Client.Id + " and stream is " + Client.Stream);
+                    }
+                }
+
+                foreach (var Client in clients)
+                {
+                    Debug.Log("Client Loop: " + Client.Id);
+                    if (Client.Stream.Equals(stream))
+                    {
+                        UnityMainThread.umt.AddJob(() => OnServerReceiveMessage?.Invoke(Client.Id + ":" + msg));
+                    }
+                }
             }
-
-            Client c = new Client();
-
-            c.Id = msg;
-            c.Stream = stream;
-
-            clients.Add(c);
-
-            foreach (var Client in clients)
-            {
-                Debug.Log("Connected user " + Client.Id + " and stream is " + Client.Stream);
-            }
+            
+            
         }
     }
     public void SendData(string msg)
