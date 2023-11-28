@@ -118,6 +118,7 @@ public class TCPMyServer : MonoBehaviour
                     if (Client.Stream.Equals(stream))
                     {
                         UnityMainThread.umt.AddJob(() => OnServerReceiveMessage?.Invoke(Client.Id + ":" + msg));
+                        BroadcastData(Client.Id + ":" + msg);
                     }
                 }
             }
@@ -132,6 +133,20 @@ public class TCPMyServer : MonoBehaviour
         stream.Write(bytes, 0, bytes.Length);
         OnSendMessageServer?.Invoke();
         Debug.Log("Server sent " + msg);
+    }
+
+    public void BroadcastData(string msg)
+    {
+    foreach (var Client in clients)
+    {
+        Debug.Log(msg);
+        Byte[] bytes = System.Text.Encoding.ASCII.GetBytes(msg);
+        Client.Stream.Write(bytes, 0, bytes.Length);
+        OnSendMessageServer?.Invoke();
+
+        Debug.Log("Message sent: " + msg + " to client : " + Client.Id);
+    }
+        
     }
 
 
